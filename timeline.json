@@ -8,6 +8,11 @@
 					"activity": "save",
 					"type": "learning"
 				},
+				{
+					"time": "2017-10-15",
+					"activity": "persistence",
+					"type": "learning"
+				},
 				{}
 			]
 		}
