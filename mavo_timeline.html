@@ -6,48 +6,11 @@
     <link rel="stylesheet" href="https://dev.mavo.io/dist/mavo.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"/>
     <script type="text/javascript">
-Mavo.Plugins.register('linearRegression', {
+Mavo.Plugins.register('duration', {
   extend: {
     Functions: {
-      linearRegression: function (x, y, targetX) {
-        // from: https://github.com/simple-statistics/simple-statistics/blob/master/src/linear_regression.js
-        function linearRegression(data) {
-            var m, b;
-            var dataLength = data.length;
-            if (dataLength === 1) {
-                m = 0;
-                b = data[0][1];
-            } else {
-                var sumX = 0, sumY = 0,
-                    sumXX = 0, sumXY = 0;
-                var point, x, y;
-                for (var i = 0; i < dataLength; i++) {
-                    point = data[i];
-                    x = point[0];
-                    y = point[1];
-                    sumX += x;
-                    sumY += y;
-                    sumXX += x * x;
-                    sumXY += x * y;
-                }
-                m = ((dataLength * sumXY) - (sumX * sumY)) /
-                    ((dataLength * sumXX) - (sumX * sumX));
-                b = (sumY / dataLength) - ((m * sumX) / dataLength);
-            }
-            return {
-                m: m,
-                b: b
-            };
-        }
-        if (x.length !== y.length) {
-          throw new Exception('x, y array should have same length');
-        }
-        const data = [];
-        for(let i=0;i<x.length;i++) {
-          data.push([new Date(x[i]).getTime(), parseInt(y[i])]);
-        }
-        const { m, b } = linearRegression(data);
-        return Math.round(new Date(targetX).getTime() * m + b);
+      duration: function (time, activity) {
+        return time + activity;
       }
     }
   }
@@ -61,20 +24,20 @@ Mavo.Plugins.register('linearRegression', {
           <div class="card-block">
             <h6 class="card-header" property="name">Day</h6>
             <div>
-              Enter time and activity:
+              Enter time [time] and activity [activity] [duration(time, activity)]:
               <table class="table table-hover">
                 <thead>
                   <tr>
                     <th>Time</th>
                     <th>Activity</th>
-                    <th>Type</th>
+                    <th>Comment</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr property="row" mv-multiple>
                     <td><time property="time"></time></td>
                     <td><span property="activity"></span></td>
-                    <td><span property="type"></span></td>
+                    <td><span property="type">[time] [activity]</span></td>
                   </tr>
                 </tbody>
               </table>
