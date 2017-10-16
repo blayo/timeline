@@ -6,14 +6,19 @@
 				{
 					"time": "2017-10-15",
 					"activity": "save",
-					"type": "learning"
+					"type": "learning",
+					"hour": "16h10"
 				},
 				{
 					"time": "2017-10-15",
 					"activity": "persistence",
-					"type": "learning"
+					"type": "learning",
+					"hour": "17h20"
 				},
-				{}
+				{
+					"hour": "17h30",
+					"activity": "math"
+				}
 			]
 		}
 	]
