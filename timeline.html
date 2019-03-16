@@ -9,8 +9,17 @@
 Mavo.Plugins.register('duration', {
   extend: {
     Functions: {
-      duration: function (time, activity) {
-        return time + activity;
+      duration: function (hours, activity) {
+	var seconds = [];
+	for (var i = 0; i < hours.length; i++) {
+		var parts = hours[i].split('h');
+		seconds.push(Number(parts[0])*3600 + Number(parts[1])*60);
+	}
+	var durations = [];
+	for (var i = 1; i < seconds.length; i++) {
+		durations.push(seconds[i] - seconds[i-1])
+	}
+        return durations.join(' ');
       }
     }
   }
@@ -24,20 +33,18 @@ Mavo.Plugins.register('duration', {
           <div class="card-block">
             <h6 class="card-header" property="name">Day</h6>
             <div>
-              Enter time [time] and activity [activity] [duration(time, activity)]:
+              Times are [hour], activities are [activity] and durations in seconds are [duration(hour, activity)]:
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th>Time</th>
+                    <th>Hour</th>
                     <th>Activity</th>
-                    <th>Comment</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr property="row" mv-multiple>
-                    <td><time property="time"></time></td>
+                    <td><span property="hour"></span></td>
                     <td><span property="activity"></span></td>
-                    <td><span property="type">[time] [activity]</span></td>
                   </tr>
                 </tbody>
               </table>
